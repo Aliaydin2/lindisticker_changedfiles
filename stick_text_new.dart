@@ -59,8 +59,17 @@ class _StickTextNewState extends State<StickTextNew>
         oldWidgets: imageWidgets,
         updateValue: updateOldWidgets,
         imageIndex: index);
- 
+    // WidgetsFlutterBinding.ensureInitialized();
+    // Set preferred orientation to landscape left
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.landscapeLeft,
+    //   DeviceOrientation.landscapeRight,
+    // ]);
 
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
     // _tabController = TabController(length: 4, vsync: this);
   }
 
@@ -69,7 +78,10 @@ class _StickTextNewState extends State<StickTextNew>
     // _tabController.dispose();
     lindiController.dispose();
     super.dispose();
-    
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.portraitDown,
+    // ]);
   }
 
   // final GlobalKey<ScaffoldState> endDrawerKey = GlobalKey<ScaffoldState>();
