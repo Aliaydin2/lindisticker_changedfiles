@@ -225,10 +225,7 @@ class _StickTextNewState extends State<StickTextNew>
                         ),
                       ),
                       showShape
-                          ? SizedBox(
-                              width: 360.w,
-                              height: 10.h,
-                            )
+                          ? _showShapeScaf()
                           : showSticks
                               ? _showSticks()
                               : SizedBox(
@@ -319,6 +316,278 @@ class _StickTextNewState extends State<StickTextNew>
       ),
       if (showText) _showTextScaf(),
     ]);
+  }
+_showShapeScaf() {
+    void updateStrokeWidth(double width) {
+      strokeWidth = width;
+    }
+
+    void updateOpacityValue(double value) {
+      opacityValue = value;
+    }
+
+    final shapeColorList =
+        context.read<ShapeValuesCubit>().state.shapeValuesMap["colors"];
+    return SizedBox(
+      height: 260.h,
+      width: 360.w,
+      child: Column(
+        children: [
+          TabBar(
+            labelColor: Colors.amber,
+            unselectedLabelColor: Colors.white,
+            indicatorColor: Colors.amber,
+            controller: _tabController,
+            tabs: const <Widget>[
+              Tab(
+                icon: Icon(Icons.rectangle_outlined),
+              ),
+              Tab(
+                icon: Icon(Icons.rounded_corner_sharp),
+              ),
+              Tab(icon: Icon(Icons.circle_outlined)),
+              Tab(
+                icon: Icon(Icons.linear_scale_sharp),
+              ),
+            ],
+          ),
+          SizedBox(
+            width: 330.w,
+            height: 100.h,
+            child: TabBarView(
+              controller: _tabController,
+              children: <Widget>[
+                Container(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: ListView(children: <Widget>[
+                    SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Column(children: [
+                        Row(children: [
+                          ...sizesList()[0].map((e) {
+                            return Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: InkWell(
+                                child: e[2]
+                                    ? Column(
+                                        children: [
+                                          const Icon(Icons.rectangle),
+                                          Text(e[3][0]),
+                                        ],
+                                      )
+                                    : Column(
+                                        children: [
+                                          const Icon(Icons.rectangle_outlined),
+                                          Text(e[3][0]),
+                                        ],
+                                      ),
+                                onTap: () {
+                                  setState(() {
+                                    lindiController.addWidget(Opacity(
+                                      opacity: opacityValue,
+                                      child: CustomPaint(
+                                        painter: OpenPainterRect(
+                                            rectSize: Size(e[0], e[1]),
+                                            selectedColor: selectedColor,
+                                            strokeWidth: strokeWidth,
+                                            filled: e[2]),
+                                        size: Size(e[0], e[1]),
+                                      ),
+                                    ));
+                                  });
+                                  // endDrawerKey.currentState!.closeEndDrawer();
+                                },
+                              ),
+                            );
+                          }),
+                        ]),
+                      ]),
+                    ),
+                  ]),
+                ),
+                Container(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: ListView(children: <Widget>[
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(children: [
+                        Row(
+                          children: [
+                            ...sizesList()[1].map((e) {
+                              return Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: InkWell(
+                                  child: e[2]
+                                      ? Column(
+                                          children: [
+                                            const Icon(
+                                                Icons.border_all_rounded),
+                                            Text(e[3][0]),
+                                          ],
+                                        )
+                                      : Column(
+                                          children: [
+                                            const Icon(
+                                                Icons.border_outer_rounded),
+                                            Text(e[3][0]),
+                                          ],
+                                        ),
+                                  onTap: () {
+                                    setState(() {
+                                      lindiController.addWidget(Opacity(
+                                        opacity: opacityValue,
+                                        child: CustomPaint(
+                                          painter: OpenPainterRRect(
+                                              rectSize: Size(e[0], e[1]),
+                                              selectedColor: selectedColor,
+                                              strokeWidth: strokeWidth,
+                                              filled: e[2]),
+                                          size: Size(e[0], e[1]),
+                                        ),
+                                      ));
+                                    });
+                                    // endDrawerKey.currentState!.closeEndDrawer();
+                                  },
+                                ),
+                              );
+                            }),
+                          ],
+                        ),
+                      ]),
+                    ),
+                  ]),
+                ),
+                Container(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: ListView(children: <Widget>[
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(children: [
+                        Row(children: [
+                          ...sizesList()[2].map((e) {
+                            return Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: InkWell(
+                                child: e[2]
+                                    ? Column(
+                                        children: [
+                                          const Icon(Icons.circle),
+                                          Text(e[3][0]),
+                                        ],
+                                      )
+                                    : Column(
+                                        children: [
+                                          const Icon(Icons.circle_outlined),
+                                          Text(e[3][0]),
+                                        ],
+                                      ),
+                                onTap: () {
+                                  setState(() {
+                                    lindiController.addWidget(Opacity(
+                                      opacity: opacityValue,
+                                      child: Opacity(
+                                        opacity: opacityValue,
+                                        child: CustomPaint(
+                                          painter: OpenPainterCircle(
+                                              circleSize: [e[0], e[1]],
+                                              selectedColor: selectedColor,
+                                              strokeWidth: strokeWidth,
+                                              filled: e[2]),
+                                          size: Size(e[0], e[1]),
+                                        ),
+                                      ),
+                                    ));
+                                  });
+                                  // endDrawerKey.currentState!.closeEndDrawer();
+                                },
+                              ),
+                            );
+                          }),
+                        ]),
+                      ]),
+                    ),
+                  ]),
+                ),
+                Container(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: ListView(children: <Widget>[
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(children: [
+                        Row(
+                          children: [
+                            ...sizesList()[3].map((e) {
+                              return Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: InkWell(
+                                  child: Column(
+                                    children: [
+                                      const Icon(Icons.linear_scale),
+                                      Text(e[1][0]),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      lindiController.addWidget(Opacity(
+                                        opacity: opacityValue,
+                                        child: CustomPaint(
+                                          painter: OpenPainterLine(
+                                            lineSize: e[0],
+                                            selectedColor: selectedColor,
+                                            strokeWidth: strokeWidth,
+                                          ),
+                                          size: Size(e[0], 30),
+                                        ),
+                                      ));
+                                    });
+                                    // endDrawerKey.currentState!.closeEndDrawer();
+                                  },
+                                ),
+                              );
+                            }),
+                          ],
+                        ),
+                      ]),
+                    ),
+                  ]),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 50.h, width: double.infinity),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  ColorPick().show(context, changeColor: selectedColor,
+                      onPick: (color) {
+                    setState(() {
+                      selectedColor = color;
+                      shapeColorList[1] = shapeColorList[0];
+                      shapeColorList[0] = color;
+                    });
+                  });
+                },
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    color: selectedColor,
+                    border: Border.all(
+                      width: 2,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+              DropdownButtonOpacity(updateValue: updateOpacityValue),
+              DropdownButtonStrike(updateValue: updateStrokeWidth),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   _showSticks() {
